@@ -1,0 +1,77 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>WMS - Sistema de Gerenciamento de Armazem - Login</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/dist/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Content/dist/css/Site.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/iCheck/square/blue.css">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>WMS</b></a>
+        </div>
+
+        @using (Html.BeginForm("LoginWMS", "Login", FormMethod.Post))
+        {
+
+            <div class="login-box-body">
+                <p class="login-box-msg">Login do Sistema</p>
+                <div class="form-group has-feedback">
+                    @Html.TextBox("usuario", null, new { @class = "form-control", @placeholder = "Usuário" })
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.Password("senha", null, new { @class = "form-control", @placeholder = "Senha" })
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <button type="submit" id="btnLogin" name="btnLogin" class="btn btn-primary btn-block btn-flat">Login</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <script src="~/Content/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $('#btnLogin').click(function (e) {
+            e.preventDefault();
+
+            var data = {
+                usuario: $('#usuario').val().trim(),
+                senha: $('#senha').val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Login/LoginWMS",
+                content: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(data),
+                success: function (d) {
+                        window.location = "../Home";
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -11,7 +11,10 @@ namespace WMS.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            if (Session["Usuario"] != null)
+                return View();
+            else
+                return RedirectToAction("", "Login");
         }
     }
 }

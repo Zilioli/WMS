@@ -962,6 +962,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1069,6 +1070,7 @@
     <Content Include="Content\dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Views\Login\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1080,6 +1082,12 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\Cadastro\" />
+    <Folder Include="Views\Estoque\" />
+    <Folder Include="Views\Expedicao\" />
+    <Folder Include="Views\Inventario\" />
+    <Folder Include="Views\Recebimento\" />
+    <Folder Include="Views\Separacao\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
