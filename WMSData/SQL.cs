@@ -8,7 +8,7 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace WMSData
 {
-    class SQL : IData
+    public class SQL : IData
     {
         public string CONNECTION_STRING
         {

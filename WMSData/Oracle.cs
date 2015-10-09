@@ -10,7 +10,7 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace WMSData
 {
-    class Oracle : IData
+    public class Oracle : IData
     {
         #region Variáveis
         private OracleConnection objConnection;
