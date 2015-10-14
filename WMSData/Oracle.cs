@@ -14,7 +14,7 @@ namespace WMSData
     {
         #region Variáveis
         private OracleConnection objConnection;
-        private OracleCommand objCommand;
+        private OracleCommand objCommand = new OracleCommand();
         #endregion
 
         #region Atributos
@@ -53,12 +53,28 @@ namespace WMSData
             try
             {
                 if(objCommand != null)
-                    objCommand.Parameters.Add(pName, pOracleDbType, pSize, pVal, pDirection);
+                {
+                    if (pDirection == ParameterDirection.Input)
+                        objCommand.Parameters.Add(pName, pOracleDbType, pSize, (pVal == null) ? DBNull.Value : pVal, pDirection);
+                    else
+                        objCommand.Parameters.Add(pName, pOracleDbType).Direction = ParameterDirection.Output;
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }            
+        }
+
+        public object GetParameter(string pName)
+        {
+            if (objCommand != null)
+            {
+                if (objCommand.Parameters[pName] != null)
+                    return objCommand.Parameters[pName].Value;
+            }
+
+            return null;
         }
 
         public void ClearParameters()
@@ -112,6 +128,7 @@ namespace WMSData
                 objCommand.Connection = objConnection;
                 objCommand.CommandType = COMMAND_TYPE;
                 objCommand.CommandText = COMMAND;
+
                 return objCommand.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -119,6 +136,8 @@ namespace WMSData
                 throw ex;
             }
         }
+
+
 
         public IDataReader ExecuteQuery()
         {

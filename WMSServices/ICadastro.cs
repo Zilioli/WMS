@@ -14,6 +14,7 @@ namespace WMSServices
         [OperationContract]
         bool IncluirPerfil();
 
-        List<Perfil> ListarPerfil(Perfil pPerfil);
+        [OperationContract]
+        string ListarPerfil(Perfil pPerfil);
     }
 }

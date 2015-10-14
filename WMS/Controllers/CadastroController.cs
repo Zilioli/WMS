@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using WMS.Models;
 
 namespace WMS.Controllers
 {
@@ -16,22 +19,15 @@ namespace WMS.Controllers
 
         public ActionResult Perfil()
         {
-            List<Models.Perfil> lstPerfil = new List<Models.Perfil>();
-            Models.Perfil item = new Models.Perfil();
-            item.idPerfil = 1;
-            item.desPerfil = "Administrador";
-            lstPerfil.Add(item);
+            wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            List<Perfil> lstPerfil = serializer.Deserialize<List<Perfil>>(objCadastro.ListarPerfil(null));
 
-            item = new Models.Perfil();
-            item.idPerfil = 2;
-            item.desPerfil = "Usuario";
-            lstPerfil.Add(item);
-
-            item = new Models.Perfil();
-            item.idPerfil = 3;
-            item.desPerfil = "Peão";
-            lstPerfil.Add(item);
-
+            //string jsonString = @"{""Perfil"":[{""idPerfil"":""1"",""desPerfil"":""Sherlock""},{""idPerfil"":""2"",""desPerfil"":""The Matrix""}]}";
+            //JavaScriptSerializer serializer = new JavaScriptSerializer();
+            //var opa = JsonConvert.DeserializeObject<Perfil>(jsonString);
+            //List<Perfil> lstPerfil = serializer.Deserialize<List<Perfil>>(jsonString);
+            //List<Perfil> lstPerfil = new List<Models.Perfil>();
             return View(lstPerfil);
         }
     }
