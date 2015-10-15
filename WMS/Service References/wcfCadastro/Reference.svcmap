@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8def1205-3cce-4479-aa90-116e8f38cd7c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c40ac22d-951c-484d-b4dc-b74af18b45b7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,10 @@
     <MetadataSource Address="http://localhost:30077/Cadastro.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Cadastro.xsd" MetadataType="Schema" ID="10ee5562-f388-400b-ad2c-7e0da8e5ed7c" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?xsd=xsd0" />
-    <MetadataFile FileName="Cadastro1.xsd" MetadataType="Schema" ID="b7435bdb-23d5-48b9-8baa-c78a33492cd8" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?xsd=xsd1" />
-    <MetadataFile FileName="Cadastro.disco" MetadataType="Disco" ID="8428aa7d-ba2b-4aba-b21a-2f6035b5746a" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?disco" />
-    <MetadataFile FileName="Cadastro2.xsd" MetadataType="Schema" ID="d23f8a33-7808-481a-9e29-b83dbae94846" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?xsd=xsd2" />
-    <MetadataFile FileName="Cadastro.wsdl" MetadataType="Wsdl" ID="23da9464-692a-45e6-8e16-9fc0100059e1" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?wsdl" />
+    <MetadataFile FileName="Cadastro.xsd" MetadataType="Schema" ID="fda85407-2881-417e-b004-63d68415aed4" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?xsd=xsd0" />
+    <MetadataFile FileName="Cadastro1.xsd" MetadataType="Schema" ID="a7aba220-88b4-4f66-8a93-f3917c14a659" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?xsd=xsd1" />
+    <MetadataFile FileName="Cadastro.disco" MetadataType="Disco" ID="18e6f68f-58e2-4104-bcc3-ec787351fe83" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?disco" />
+    <MetadataFile FileName="Cadastro.wsdl" MetadataType="Wsdl" ID="882063ef-48e9-49dd-9c14-08046fb36a46" SourceId="1" SourceUrl="http://localhost:30077/Cadastro.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

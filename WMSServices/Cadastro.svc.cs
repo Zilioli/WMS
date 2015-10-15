@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region using 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,29 +12,39 @@ using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Configuration;
+#endregion
 
 namespace WMSServices
 {
     public class Cadastro : ICadastro
     {
+
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * PERFIL
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
+        #region IncluirPerfil
         public bool IncluirPerfil()
         {
             return true;
         }
+        #endregion
 
-        public string ListarPerfil(Perfil pPerfil)
+        #region ListarPerfil
+        public string ListarPerfil(string pJSONPerfil)
         {
             WMSData.Oracle objOracle = new WMSData.Oracle();
             Perfil objPerfil;
             List<Perfil> lstPerfil = new List<Perfil>();
             OracleDataReader objResultado;
-
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Perfil pPerfil = serializer.Deserialize<Perfil>(pJSONPerfil);
             try
             {
                 // Recupera a string de Conexão
-                objOracle.CONNECTION_STRING = objOracle.CONNECTION_STRING = @"Data Source=(DESCRIPTION=
-                                        (ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=Zilioli )(PORT=1521)))
-         (CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=WMS))); User Id=wms ;Password=wms2015";
+                objOracle.CONNECTION_STRING = ConfigurationManager.ConnectionStrings["WMS_ORACLE"].ConnectionString;
 
                 // Abre conexão com o DB
                 objOracle.Open();
@@ -45,8 +56,8 @@ namespace WMSServices
                 objOracle.COMMAND = "SYS.PKG_Cadastrar.LISTAR_PERFIL";
 
                 // Adiciona os parametros a chamada da procedure
-                objOracle.AddParameter("pIDPERFIL", OracleDbType.Int16, 3, 1, ParameterDirection.Input);
-                objOracle.AddParameter("pDESPERFIL", OracleDbType.Varchar2, 255, null, ParameterDirection.Input);
+                objOracle.AddParameter("pIDPERFIL", OracleDbType.Int16, 3,pPerfil.idPerfil, ParameterDirection.Input);
+                objOracle.AddParameter("pDESPERFIL", OracleDbType.Varchar2, 255, pPerfil.desPerfil, ParameterDirection.Input);
                 objOracle.AddParameter("C_CUR", OracleDbType.RefCursor, 0, null, ParameterDirection.Output);
 
                 // Executa a procedure
@@ -94,6 +105,12 @@ namespace WMSServices
                 lstPerfil = null;
             }
         }
+        #endregion
 
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * PERFIL
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
     }
 }

@@ -9,68 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace WMS.wcfCadastro {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Perfil", Namespace="http://schemas.datacontract.org/2004/07/WMS.Models")]
-    [System.SerializableAttribute()]
-    public partial class Perfil : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string desPerfilk__BackingFieldField;
-        
-        private int idPerfilk__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<desPerfil>k__BackingField", IsRequired=true)]
-        public string desPerfilk__BackingField {
-            get {
-                return this.desPerfilk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.desPerfilk__BackingFieldField, value) != true)) {
-                    this.desPerfilk__BackingFieldField = value;
-                    this.RaisePropertyChanged("desPerfilk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<idPerfil>k__BackingField", IsRequired=true)]
-        public int idPerfilk__BackingField {
-            get {
-                return this.idPerfilk__BackingFieldField;
-            }
-            set {
-                if ((this.idPerfilk__BackingFieldField.Equals(value) != true)) {
-                    this.idPerfilk__BackingFieldField = value;
-                    this.RaisePropertyChanged("idPerfilk__BackingField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="wcfCadastro.ICadastro")]
@@ -83,10 +22,10 @@ namespace WMS.wcfCadastro {
         System.Threading.Tasks.Task<bool> IncluirPerfilAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/ListarPerfil", ReplyAction="http://tempuri.org/ICadastro/ListarPerfilResponse")]
-        string ListarPerfil(WMS.wcfCadastro.Perfil pPerfil);
+        string ListarPerfil(string pJSONPerfil);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/ListarPerfil", ReplyAction="http://tempuri.org/ICadastro/ListarPerfilResponse")]
-        System.Threading.Tasks.Task<string> ListarPerfilAsync(WMS.wcfCadastro.Perfil pPerfil);
+        System.Threading.Tasks.Task<string> ListarPerfilAsync(string pJSONPerfil);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -124,12 +63,12 @@ namespace WMS.wcfCadastro {
             return base.Channel.IncluirPerfilAsync();
         }
         
-        public string ListarPerfil(WMS.wcfCadastro.Perfil pPerfil) {
-            return base.Channel.ListarPerfil(pPerfil);
+        public string ListarPerfil(string pJSONPerfil) {
+            return base.Channel.ListarPerfil(pJSONPerfil);
         }
         
-        public System.Threading.Tasks.Task<string> ListarPerfilAsync(WMS.wcfCadastro.Perfil pPerfil) {
-            return base.Channel.ListarPerfilAsync(pPerfil);
+        public System.Threading.Tasks.Task<string> ListarPerfilAsync(string pJSONPerfil) {
+            return base.Channel.ListarPerfilAsync(pJSONPerfil);
         }
     }
 }

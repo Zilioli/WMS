@@ -117,6 +117,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\js\jquery.min.js" />
     <Content Include="Content\bootstrap\js\npm.js" />
     <Content Include="Content\dist\css\font-awesome.min.css" />
     <Content Include="Content\dist\css\ionicons.min.css" />
@@ -1124,9 +1125,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\wcfCadastro\Cadastro1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\wcfCadastro\Cadastro2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Web.Debug.config">

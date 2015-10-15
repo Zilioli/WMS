@@ -17,18 +17,54 @@ namespace WMS.Controllers
             return View();
         }
 
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * PERFIL
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
+
+        #region Perfil
+
+        /// <summary>
+        /// Carrega a tela inicial de Manutenção de Perfil
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Perfil()
         {
             wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            List<Perfil> lstPerfil = serializer.Deserialize<List<Perfil>>(objCadastro.ListarPerfil(null));
+            List<Perfil> lstPerfil = new List<Models.Perfil>();
+            Models.Perfil objPerfil = new Models.Perfil();
 
-            //string jsonString = @"{""Perfil"":[{""idPerfil"":""1"",""desPerfil"":""Sherlock""},{""idPerfil"":""2"",""desPerfil"":""The Matrix""}]}";
-            //JavaScriptSerializer serializer = new JavaScriptSerializer();
-            //var opa = JsonConvert.DeserializeObject<Perfil>(jsonString);
-            //List<Perfil> lstPerfil = serializer.Deserialize<List<Perfil>>(jsonString);
-            //List<Perfil> lstPerfil = new List<Models.Perfil>();
-            return View(lstPerfil);
+            try
+            {
+                objPerfil.idPerfil = -1;
+                lstPerfil = serializer.Deserialize<List<Perfil>>(objCadastro.ListarPerfil(JsonConvert.SerializeObject(objPerfil)));
+                return View(lstPerfil);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                serializer = null;
+                lstPerfil = null;
+            }
         }
+
+        #endregion
+
+        [HttpPost]
+        public JsonResult DeletarPerfil(Perfil pVO)
+        {
+            return Json("OK");
+        }
+
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * PERFIL
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
     }
 }
