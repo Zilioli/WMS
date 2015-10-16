@@ -12,7 +12,7 @@ namespace WMSServices
     public interface ICadastro
     {
         [OperationContract]
-        bool IncluirPerfil();
+        bool ManutencaoPerfil(string pACAO, string pJSONPerfil);
 
         [OperationContract]
         string ListarPerfil(string pJSONPerfil);

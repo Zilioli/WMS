@@ -15,11 +15,11 @@ namespace WMS.wcfCadastro {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="wcfCadastro.ICadastro")]
     public interface ICadastro {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/IncluirPerfil", ReplyAction="http://tempuri.org/ICadastro/IncluirPerfilResponse")]
-        bool IncluirPerfil();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/ManutencaoPerfil", ReplyAction="http://tempuri.org/ICadastro/ManutencaoPerfilResponse")]
+        bool ManutencaoPerfil(string pACAO, string pJSONPerfil);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/IncluirPerfil", ReplyAction="http://tempuri.org/ICadastro/IncluirPerfilResponse")]
-        System.Threading.Tasks.Task<bool> IncluirPerfilAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/ManutencaoPerfil", ReplyAction="http://tempuri.org/ICadastro/ManutencaoPerfilResponse")]
+        System.Threading.Tasks.Task<bool> ManutencaoPerfilAsync(string pACAO, string pJSONPerfil);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/ListarPerfil", ReplyAction="http://tempuri.org/ICadastro/ListarPerfilResponse")]
         string ListarPerfil(string pJSONPerfil);
@@ -55,12 +55,12 @@ namespace WMS.wcfCadastro {
                 base(binding, remoteAddress) {
         }
         
-        public bool IncluirPerfil() {
-            return base.Channel.IncluirPerfil();
+        public bool ManutencaoPerfil(string pACAO, string pJSONPerfil) {
+            return base.Channel.ManutencaoPerfil(pACAO, pJSONPerfil);
         }
         
-        public System.Threading.Tasks.Task<bool> IncluirPerfilAsync() {
-            return base.Channel.IncluirPerfilAsync();
+        public System.Threading.Tasks.Task<bool> ManutencaoPerfilAsync(string pACAO, string pJSONPerfil) {
+            return base.Channel.ManutencaoPerfilAsync(pACAO, pJSONPerfil);
         }
         
         public string ListarPerfil(string pJSONPerfil) {

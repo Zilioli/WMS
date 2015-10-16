@@ -14,29 +14,32 @@
     <title>WMS - Cadastro de Perfil</title>
 </head>
 <body>
-    <div>
-        <section class="content">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Lista de Perfil</h3>
-                            <div class="box-body">
-                                @Html.Grid(Model).Named("grdPerfil").Columns(
-                                    columns =>
-                                    {
-                                    columns.Add(p => p.idPerfil).Titled("Código");
-                                    columns.Add(p => p.desPerfil).Titled("Descrição");
+    @using (Html.BeginForm())
+    {
+        <div>
+            <section class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header with-border">
 
-                                    columns.Add()
+                                <h3 class="box-title">Lista de Perfil</h3>
+                                <div class="box-body">
+                                    @Html.Grid(Model).Named("grdPerfil").Columns(
+             columns =>
+             {
+             columns.Add(p => p.idPerfil).Titled("Código");
+             columns.Add(p => p.desPerfil).Titled("Descrição");
+
+             columns.Add()
                                             .Encoded(false)
                                             .Sanitized(false)
                                             .SetWidth(30)
-                                            .RenderValueAs(p => @<a data-toggle="modal" data-target="#myModal">
+                                            .RenderValueAs(p => @<a id="btnEdit" class="btnEdit" data-id="idPerfil=@p.idPerfil&desPerfil=@p.desPerfil">
                                                 &nbsp;<span class='glyphicon glyphicon-search'></span>
                                             </a>);
 
-                                    columns.Add()
+             columns.Add()
                                             .Encoded(false)
                                             .Sanitized(false)
                                             .SetWidth(30)
@@ -44,99 +47,118 @@
                                                 &nbsp;<span class='glyphicon glyphicon-trash'></span>
                                             </a>);
 
-                                    }).WithPaging(10).Sortable(true)
+             }).WithPaging(10).Sortable(true)
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+            </section>
 
-
-        </section>
-    </div>
+        </div>
 
     <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Manutenção de Perfil</h4>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Manutenção de Perfil</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Formulário</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>Formulário</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
 
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="deleteLabel">Confirma a Ação</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Você gostaria de deletar o Perfil selecionado?
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="deleteConfirm">Confirmar</button>
-                </div>
             </div>
         </div>
-    </div>
-    <script src="~/Content/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <script>
-        var idPerfilAux;
-        function Acao(id, action) {
-            $("#notificationFormItemId").val(id);
-            switch (action) {
-                case 'deletar':
-                    var Perfil = {
-                        idPerfil: idPerfilAux,
-                        desPerfil: null
-                    };
-                    alert(JSON.stringify(Perfil));
-                    $.ajax({
-                        type: "POST",
-                        url: "/Cadastro/DeletarPerfil",
-                        content: "application/json; charset=utf-8",
-                        dataType: "json",
-                        data: JSON.stringify(Perfil),
-                        success: function (data) {
-                            alert("Perfil removido com sucesso!");
-                            $('#deleteConfirmModal').modal('show');
-                        },
-                        error: function (xhr, textStatus, errorThrown) {
-                            alert(textStatus);
-                        }
-                    });
-                    break;
-                default:
-                    console.debug('Ação desconhecida' + action);
+
+
+        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="deleteLabel">Confirma a Ação</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Você gostaria de deletar o Perfil selecionado?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="deleteConfirm">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modal">
+
+        </div>
+
+
+        <script src="~/Content/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <script>
+            var idPerfilAux;
+            function Acao(id, action) {
+
+                switch (action) {
+                    case 'deletar':
+
+                        var Perfil = {
+                            idPerfil: idPerfilAux,
+                            desPerfil: null
+                        };
+
+                        $.ajax({
+                            url: '/Cadastro/DeletarPerfil',
+                            data: JSON.stringify(Perfil),
+                            type: 'POST',
+                            contentType: 'application/json; charset=utf-8;',
+                            dataType: 'json',
+                            success: function (response) {
+                                debugger;
+                                return;
+                            },
+                            error: function (x) {
+                                debugger;
+                                alert(x.status);
+                            }
+                        });
+                        break;
+                    default:
+                        console.debug('Ação desconhecida' + action);
+                }
+                return false;
             }
-        }
 
-        function Confirmar(id) {
-            idPerfilAux = id;
-            $('#deleteConfirmModal').modal('show');
-        }
+            function Confirmar(id) {
+                idPerfilAux = id;
+                $('#deleteConfirmModal').modal('show');
+            }
 
-        $(function () {
-            $("#deleteConfirmModal").on('click', "#deleteConfirm", function () {
-                Acao(idPerfilAux, 'deletar');
+            $(function () {
+                $("#deleteConfirmModal").on('click', "#deleteConfirm", function () {
+                    Acao(idPerfilAux, 'deletar');
+                });
             });
-        });
 
-    </script>
+
+            $(".btnEdit").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("ManutencaoPerfil?" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+
+
+
+        </script>
+    }
 </body>
 </html>

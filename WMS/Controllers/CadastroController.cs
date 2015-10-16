@@ -48,6 +48,8 @@ namespace WMS.Controllers
             }
             finally
             {
+                objCadastro.Close();
+                objCadastro = null;
                 serializer = null;
                 lstPerfil = null;
             }
@@ -55,10 +57,48 @@ namespace WMS.Controllers
 
         #endregion
 
-        [HttpPost]
         public JsonResult DeletarPerfil(Perfil pVO)
         {
-            return Json("OK");
+            wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
+            try
+            {
+                objCadastro.ManutencaoPerfil("E", JsonConvert.SerializeObject(pVO));
+                return Json("OK");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objCadastro.Close();
+                objCadastro = null;
+            }
+        }
+
+
+        public ActionResult ManutencaoPerfil(Perfil pVO)
+        {
+            return View(pVO);
+        }
+
+        public JsonResult SalvarPerfil(string pACAO,  Perfil pVO)
+        {
+            wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
+            try
+            {
+                objCadastro.ManutencaoPerfil(pACAO, JsonConvert.SerializeObject(pVO));
+                return Json("OK");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objCadastro.Close();
+                objCadastro = null;
+            }
         }
 
         /*--------------------------------------------------------------------

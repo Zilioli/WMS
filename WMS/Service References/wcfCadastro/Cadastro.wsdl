@@ -6,11 +6,11 @@
       <xsd:import schemaLocation="http://localhost:30077/Cadastro.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ICadastro_IncluirPerfil_InputMessage">
-    <wsdl:part name="parameters" element="tns:IncluirPerfil" />
+  <wsdl:message name="ICadastro_ManutencaoPerfil_InputMessage">
+    <wsdl:part name="parameters" element="tns:ManutencaoPerfil" />
   </wsdl:message>
-  <wsdl:message name="ICadastro_IncluirPerfil_OutputMessage">
-    <wsdl:part name="parameters" element="tns:IncluirPerfilResponse" />
+  <wsdl:message name="ICadastro_ManutencaoPerfil_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ManutencaoPerfilResponse" />
   </wsdl:message>
   <wsdl:message name="ICadastro_ListarPerfil_InputMessage">
     <wsdl:part name="parameters" element="tns:ListarPerfil" />
@@ -19,9 +19,9 @@
     <wsdl:part name="parameters" element="tns:ListarPerfilResponse" />
   </wsdl:message>
   <wsdl:portType name="ICadastro">
-    <wsdl:operation name="IncluirPerfil">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICadastro/IncluirPerfil" message="tns:ICadastro_IncluirPerfil_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICadastro/IncluirPerfilResponse" message="tns:ICadastro_IncluirPerfil_OutputMessage" />
+    <wsdl:operation name="ManutencaoPerfil">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICadastro/ManutencaoPerfil" message="tns:ICadastro_ManutencaoPerfil_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICadastro/ManutencaoPerfilResponse" message="tns:ICadastro_ManutencaoPerfil_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ListarPerfil">
       <wsdl:input wsaw:Action="http://tempuri.org/ICadastro/ListarPerfil" message="tns:ICadastro_ListarPerfil_InputMessage" />
@@ -30,8 +30,8 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICadastro" type="tns:ICadastro">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="IncluirPerfil">
-      <soap:operation soapAction="http://tempuri.org/ICadastro/IncluirPerfil" style="document" />
+    <wsdl:operation name="ManutencaoPerfil">
+      <soap:operation soapAction="http://tempuri.org/ICadastro/ManutencaoPerfil" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

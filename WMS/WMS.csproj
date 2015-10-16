@@ -1127,6 +1127,7 @@
     <None Include="Service References\wcfCadastro\Cadastro1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Cadastro\ManutencaoPerfil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

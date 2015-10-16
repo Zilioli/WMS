@@ -26,9 +26,48 @@ namespace WMSServices
          *--------------------------------------------------------------------
          *--------------------------------------------------------------------*/
         #region IncluirPerfil
-        public bool IncluirPerfil()
+        public bool ManutencaoPerfil(string pACAO, string pJSONPerfil)
         {
-            return true;
+
+            WMSData.Oracle objOracle = new WMSData.Oracle();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Perfil pPerfil = serializer.Deserialize<Perfil>(pJSONPerfil);
+
+            try
+            {
+                // Recupera a string de Conexão
+                objOracle.CONNECTION_STRING = ConfigurationManager.ConnectionStrings["WMS_ORACLE"].ConnectionString;
+
+                // Abre conexão com o DB
+                objOracle.Open();
+
+                // Indica o tipo de comando
+                objOracle.COMMAND_TYPE = CommandType.StoredProcedure;
+
+                // Comando a ser executado no DB
+                objOracle.COMMAND = "SYS.PKG_Cadastrar.MANUTENCAO_PERFIL";
+
+                // Adiciona os parametros a chamada da procedure
+                objOracle.AddParameter("pACAO", OracleDbType.Char, 1, pACAO, ParameterDirection.Input);
+                objOracle.AddParameter("pIDPERFIL", OracleDbType.Int16, 3, pPerfil.idPerfil, ParameterDirection.Input);
+                objOracle.AddParameter("pDESPERFIL", OracleDbType.Varchar2, 255, pPerfil.desPerfil, ParameterDirection.Input);
+
+                // Executa a procedure
+                return (objOracle.ExecuteNonQuery() > 0 ? true : false);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                // Verifica se existe conexão aberta e fecha
+                if (objOracle != null)
+                    objOracle.Close();
+
+                // Finaliza os objetos
+                objOracle = null;
+            }
         }
         #endregion
 
