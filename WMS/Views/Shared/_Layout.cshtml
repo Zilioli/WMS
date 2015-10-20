@@ -420,7 +420,45 @@
                 </ol>*@
             </section>
             @RenderBody()
-        </div><!-- /.content-wrapper -->
+
+            <div class="modal" id="modal">
+
+            </div>
+
+            <div class="modal fade" id="ConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div id="confirmHeader"></div>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                <div id="confirmMessage"></div>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success" id="actionConfirmModal">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="AlertaModal" tabindex="-1" role="dialog" aria-labelledby="AlertaModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="alert alert-success alert-dismissable" id="alert_class">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <div id="alert_header"><h4><i class="icon fa fa-check"></i> Alerta!</h4></div>
+                        <p>
+                            <div id="alert_message">&nbsp;</div>
+                        </p>
+                        <br />
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="btnOKModal">Ok</button>
+                    </div>
+                </div>
+            </div>
+
+       </div><!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Versão</b> 1.0.0
@@ -442,6 +480,7 @@
     @Scripts.Render("~/Content/plugins/bootstrap-wysihtml5")
     @Scripts.Render("~/Content/plugins/slimScroll")
     @Scripts.Render("~/Content/plugins/fastclick")
+    @Scripts.Render("~/Scripts")
     
 </body>
 </html>

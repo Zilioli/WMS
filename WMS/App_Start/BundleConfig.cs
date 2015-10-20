@@ -58,6 +58,8 @@ namespace WMS.App_Start
                     "~/Content/plugins/fastclick/fastclick.min.js"));
             bundles.Add(new ScriptBundle("~/Content/dist/js/pages").Include(
                     "~/Content/dist/js/pages/dashboard.js"));
+            bundles.Add(new ScriptBundle("~/Scripts").Include(
+                    "~/Scripts/WMSUtil.js"));
         }
     }
 }

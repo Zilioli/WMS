@@ -1,4 +1,6 @@
 ﻿@using GridMvc.Html
+@using System.Web.Optimization
+
 
 @model IEnumerable<WMS.Models.Perfil>
 
@@ -35,15 +37,15 @@
                                             .Encoded(false)
                                             .Sanitized(false)
                                             .SetWidth(30)
-                                            .RenderValueAs(p => @<a id="btnEdit" class="btnEdit" data-id="idPerfil=@p.idPerfil&desPerfil=@p.desPerfil">
-                                                &nbsp;<span class='glyphicon glyphicon-search'></span>
+                                            .RenderValueAs(p => @<a id="btnEdit" class="btnEdit" data-id="@p.idPerfil" href="javascript:EditarPerfil('@p.idPerfil.ToString()', '@p.desPerfil.ToString()')">
+                                                &nbsp;<span class='glyphicon glyphicon-edit'></span>
                                             </a>);
 
              columns.Add()
                                             .Encoded(false)
                                             .Sanitized(false)
                                             .SetWidth(30)
-                                            .RenderValueAs(p => @<a href="javascript:Confirmar('@p.idPerfil.ToString()')">
+                                            .RenderValueAs(p => @<a href="javascript:ExcluirPerfil('@p.idPerfil.ToString()')">
                                                 &nbsp;<span class='glyphicon glyphicon-trash'></span>
                                             </a>);
 
@@ -51,111 +53,36 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="box">
+                                    <div class="box-body pull-right">
+                                        <input type="button" value="Novo" class="btn btn-primary glyphicon-edit" id="btnNovo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             </section>
 
         </div>
-
-    <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Manutenção de Perfil</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Formulário</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="deleteLabel">Confirma a Ação</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            Você gostaria de deletar o Perfil selecionado?
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" id="deleteConfirm">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal" id="modal">
-
-        </div>
-
-
+        @Scripts.Render("~/Scripts")
         <script src="~/Content/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/Cadastro/Perfil.js"></script>
+
         <script>
-            var idPerfilAux;
-            function Acao(id, action) {
 
-                switch (action) {
-                    case 'deletar':
-
-                        var Perfil = {
-                            idPerfil: idPerfilAux,
-                            desPerfil: null
-                        };
-
-                        $.ajax({
-                            url: '/Cadastro/DeletarPerfil',
-                            data: JSON.stringify(Perfil),
-                            type: 'POST',
-                            contentType: 'application/json; charset=utf-8;',
-                            dataType: 'json',
-                            success: function (response) {
-                                debugger;
-                                return;
-                            },
-                            error: function (x) {
-                                debugger;
-                                alert(x.status);
-                            }
-                        });
-                        break;
-                    default:
-                        console.debug('Ação desconhecida' + action);
-                }
-                return false;
-            }
+            CarregarTela();
 
             function Confirmar(id) {
                 idPerfilAux = id;
-                $('#deleteConfirmModal').modal('show');
+                $('#ConfirmModal').modal('show');
             }
 
             $(function () {
-                $("#deleteConfirmModal").on('click', "#deleteConfirm", function () {
+                $("#ConfirmModal").on('click', "#deleteConfirm", function () {
                     Acao(idPerfilAux, 'deletar');
                 });
             });
-
-
-            $(".btnEdit").click(function () {
-                var id = $(this).attr("data-id");
-                $("#modal").load("ManutencaoPerfil?" + id, function () {
-                    $("#modal").modal();
-                })
-            });
-
 
 
         </script>

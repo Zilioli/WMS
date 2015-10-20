@@ -79,15 +79,33 @@ namespace WMS.Controllers
 
         public ActionResult ManutencaoPerfil(Perfil pVO)
         {
-            return View(pVO);
-        }
-
-        public JsonResult SalvarPerfil(string pACAO,  Perfil pVO)
-        {
             wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
             try
             {
-                objCadastro.ManutencaoPerfil(pACAO, JsonConvert.SerializeObject(pVO));
+                if(pVO.idPerfil > 0)
+                    pVO = serializer.Deserialize<List<Perfil>>(objCadastro.ListarPerfil(JsonConvert.SerializeObject(pVO)))[0];
+
+                return View(pVO);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objCadastro.Close();
+                objCadastro = null;
+            }
+        }
+
+        public JsonResult SalvarPerfil( Perfil pVO)
+        {
+            wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
+
+            try
+            {
+                objCadastro.ManutencaoPerfil((pVO.idPerfil == 0 ? "I":"A"), JsonConvert.SerializeObject(pVO));
                 return Json("OK");
             }
             catch (Exception ex)
