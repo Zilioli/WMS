@@ -10,7 +10,7 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace WMSData
 {
-    interface IData
+    public interface IData
     {
 
         #region Atributos
@@ -42,7 +42,7 @@ namespace WMSData
 
         #region Métodos
 
-        void AddParameter(string pName, OracleDbType pOracleDbType, int pSize, object pVal, ParameterDirection pDirection);
+        void AddParameter(string pName, WMSDBTypes.WMSDBType pDbType, int pSize, object pVal, ParameterDirection pDirection);
 
         void ClearParameters();
 
@@ -50,7 +50,7 @@ namespace WMSData
         bool Close();
         int ExecuteNonQuery();
         IDataReader ExecuteQuery();
-
+        object GetParameter(string pName);
         void IData();
 
         #endregion

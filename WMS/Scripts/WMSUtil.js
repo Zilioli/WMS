@@ -111,13 +111,31 @@ function WMSLoading()
     $('#pleaseWaitDialog').modal('show');
 }
 
+
+/*
+ * urlController:  URL do Controller em que a ação deverá ser executada
+ * Exemplo de chamada
+ * WMSCarregarTela("ManutencaoPerfil", {idPerfil:});
+ */
+function WMSLoadTela(urlController, vo)
+{
+    $('#modal').load(urlController, vo, function () {
+        $('#modal').modal();
+    })
+}
+
 /*
  * idObject: Nome do objeto para adicionar o evento
  * urlController:  URL do Controller em que a ação deverá ser executada
  * Exemplo de chamada
  * WMSCarregarTela_Click("#btnNovo", "ManutencaoPerfil");
  */
-function WMSCarregarTela_Click(idObject, urlController) {
-    $(idObject).click(function () { $('#modal').load(urlController, function () { $('#modal').modal(); }) });
+function WMSCarregarTela_Click(idObject, urlController, vo) {
+
+    $(idObject).click(function () {
+        $('#modal').load(urlController, vo, function () {
+            $('#modal').modal();
+        });
+    });
 }
 

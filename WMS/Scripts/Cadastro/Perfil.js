@@ -1,4 +1,6 @@
-﻿function SalvarPerfil() {
+﻿var var_idPerfil;
+
+function SalvarPerfil() {
 
     var Perfil = {
         idPerfil: $('#txtIdPerfil').val(),
@@ -44,14 +46,15 @@ function ExcluirSucesso()
     return;
 }
 
+
 function CarregarTela()
 {
     WMSCarregarTela_Click("#btnNovo", "ManutencaoPerfil");
 }
 
-function EditarPerfil(idPerfil, desPerfil)
+function EditarPerfil(pidPerfil)
 {
-    WMSCarregarTela_Click(".btnEdit", "ManutencaoPerfil?idPerfil=" + idPerfil);
+    WMSLoadTela("ManutencaoPerfil", { idPerfil: pidPerfil });
 }
 
 function ExcluirPerfil(idPerfil)

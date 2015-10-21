@@ -76,14 +76,13 @@ namespace WMS.Controllers
             }
         }
 
-
         public ActionResult ManutencaoPerfil(Perfil pVO)
         {
             wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             try
             {
-                if(pVO.idPerfil > 0)
+                if (pVO.idPerfil > 0)
                     pVO = serializer.Deserialize<List<Perfil>>(objCadastro.ListarPerfil(JsonConvert.SerializeObject(pVO)))[0];
 
                 return View(pVO);
