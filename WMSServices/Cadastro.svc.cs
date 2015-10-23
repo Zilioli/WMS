@@ -1,4 +1,5 @@
-﻿using System;
+﻿#region using 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,56 +12,125 @@ using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Configuration;
+#endregion
 
 namespace WMSServices
 {
     public class Cadastro : ICadastro
     {
-        public bool IncluirPerfil()
+
+        #region Variáveis
+        WMSData.IData objDATA;
+        private string PKG_NAME = "";
+        private bool SQL = true;
+        #endregion
+
+        #region Construtor
+
+        public Cadastro()
         {
-            return true;
+            if (ConfigurationManager.AppSettings["WMS_BD"] == "ORACLE")
+            {
+                objDATA = new WMSData.Oracle();
+                PKG_NAME = "SYS.PKG_Cadastrar.";
+                SQL = false;
+            }
+            else if (ConfigurationManager.AppSettings["BD_WMS"] == "SQL")
+                objDATA = new WMSData.SQL();
+
+            // Recupera a string de Conexão
+            objDATA.CONNECTION_STRING = ConfigurationManager.ConnectionStrings["WMS_CONNECTION"].ConnectionString;
+
         }
 
-        public string ListarPerfil(Perfil pPerfil)
+        #endregion
+
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * PERFIL
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
+        #region PERFIL
+
+        #region ManutencaoPerfil
+        public bool ManutencaoPerfil(string pACAO, string pJSONPerfil)
         {
-            WMSData.Oracle objOracle = new WMSData.Oracle();
-            Perfil objPerfil;
-            List<Perfil> lstPerfil = new List<Perfil>();
-            OracleDataReader objResultado;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Perfil pPerfil = serializer.Deserialize<Perfil>(pJSONPerfil);
 
             try
             {
-                // Recupera a string de Conexão
-                objOracle.CONNECTION_STRING = objOracle.CONNECTION_STRING = @"Data Source=(DESCRIPTION=
-                                        (ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=Zilioli )(PORT=1521)))
-         (CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=WMS))); User Id=wms ;Password=wms2015";
-
                 // Abre conexão com o DB
-                objOracle.Open();
+                objDATA.Open();
 
                 // Indica o tipo de comando
-                objOracle.COMMAND_TYPE = CommandType.StoredProcedure;
+                objDATA.COMMAND_TYPE = CommandType.StoredProcedure;
 
                 // Comando a ser executado no DB
-                objOracle.COMMAND = "SYS.PKG_Cadastrar.LISTAR_PERFIL";
+                objDATA.COMMAND = PKG_NAME + "MANUTENCAO_PERFIL";
 
                 // Adiciona os parametros a chamada da procedure
-                objOracle.AddParameter("pIDPERFIL", OracleDbType.Int16, 3, 1, ParameterDirection.Input);
-                objOracle.AddParameter("pDESPERFIL", OracleDbType.Varchar2, 255, null, ParameterDirection.Input);
-                objOracle.AddParameter("C_CUR", OracleDbType.RefCursor, 0, null, ParameterDirection.Output);
+                objDATA.AddParameter("pACAO", WMSDBTypes.WMSDBType.CHAR, 1, pACAO, ParameterDirection.Input);
+                objDATA.AddParameter("pIDPERFIL", WMSDBTypes.WMSDBType.INT16, 3, pPerfil.idPerfil, ParameterDirection.Input);
+                objDATA.AddParameter("pDESPERFIL", WMSDBTypes.WMSDBType.VARCHAR2, 255, pPerfil.desPerfil, ParameterDirection.Input);
 
                 // Executa a procedure
-                objOracle.ExecuteNonQuery();
+                return (objDATA.ExecuteNonQuery() > 0 ? true : false);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                // Verifica se existe conexão aberta e fecha
+                if (objDATA != null)
+                    objDATA.Close();
+            }
+        }
+        #endregion
+
+        #region ListarPerfil
+        public string ListarPerfil(string pJSONPerfil)
+        {
+            Perfil objPerfil;
+            List<Perfil> lstPerfil = new List<Perfil>();
+            IDataReader objResultado;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Perfil pPerfil = serializer.Deserialize<Perfil>(pJSONPerfil);
+            try
+            {
+                // Abre conexão com o DB
+                objDATA.Open();
+
+                // Indica o tipo de comando
+                objDATA.COMMAND_TYPE = CommandType.StoredProcedure;
+
+                // Comando a ser executado no DB
+                objDATA.COMMAND = PKG_NAME + "LISTAR_PERFIL";
+
+                // Adiciona os parametros a chamada da procedure
+                objDATA.AddParameter("pIDPERFIL", WMSDBTypes.WMSDBType.INT32, 3, pPerfil.idPerfil, ParameterDirection.Input);
+                objDATA.AddParameter("pDESPERFIL", WMSDBTypes.WMSDBType.VARCHAR2, 255, pPerfil.desPerfil, ParameterDirection.Input);
+
+                if (!SQL)
+                {
+                    objDATA.AddParameter("C_CUR", WMSDBTypes.WMSDBType.RefCursor, 0, null, ParameterDirection.Output);
+
+                    // Executa a procedure
+                    objDATA.ExecuteNonQuery();
+                }
 
                 // Recupera o Cursor de Saída
-                objResultado = ((OracleRefCursor)objOracle.GetParameter("C_CUR")).GetDataReader();
+                objResultado = (!SQL) ? ((OracleRefCursor)objDATA.GetParameter("C_CUR")).GetDataReader() : objDATA.ExecuteQuery();
 
                 // Percorre o resultado do cursor e adiciona os itens na lista
                 while (objResultado.Read())
                 {
                     // Preenche o objeto
                     objPerfil = new Perfil();
-                    objPerfil.idPerfil = int.Parse( objResultado["IDPERFIL"].ToString());
+                    objPerfil.idPerfil = int.Parse(objResultado["IDPERFIL"].ToString());
                     objPerfil.desPerfil = objResultado["DESPERFIL"].ToString();
 
                     // Adiciona o item na lista
@@ -84,16 +154,22 @@ namespace WMSServices
             finally
             {
                 // Verifica se existe conexão aberta e fecha
-                if (objOracle != null)
-                    objOracle.Close();
+                if (objDATA != null)
+                    objDATA.Close();
 
                 // Finaliza os objetos
-                objOracle = null;
                 objResultado = null;
                 objPerfil = null;
                 lstPerfil = null;
             }
         }
+        #endregion
 
+        #endregion
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * PERFIL
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
     }
 }

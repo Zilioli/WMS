@@ -58,7 +58,7 @@ namespace WMS.App_Start
             bundles.Add(new ScriptBundle("~/Content/plugins/fastclick").Include(
                     "~/Content/plugins/fastclick/fastclick.min.js"));
             bundles.Add(new ScriptBundle("~/Content/dist/js/pages").Include(
-                    "~/Content/dist/js/pages/dashboard.js"));          
+                    "~/Content/dist/js/pages/dashboard.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
             

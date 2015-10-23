@@ -125,6 +125,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\js\jquery.min.js" />
     <Content Include="Content\bootstrap\js\npm.js" />
     <Content Include="Content\dist\css\font-awesome.min.css" />
     <Content Include="Content\dist\css\ionicons.min.css" />
@@ -990,6 +991,7 @@
     <Content Include="Content\plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="Content\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Content\plugins\input-mask\phone-codes\phone-codes.json" />
+    <Content Include="Scripts\Cadastro\Perfil.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\gridmvc.js" />
@@ -1012,6 +1014,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\WMSUtil.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1153,6 +1156,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Cadastro\Funcionario.cshtml" />
+    <Content Include="Views\Cadastro\ManutencaoPerfil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

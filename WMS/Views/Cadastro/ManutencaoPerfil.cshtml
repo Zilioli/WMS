@@ -1,0 +1,53 @@
+﻿@model WMS.Models.Perfil
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ManutencaoPerfil</title>
+</head>
+<body>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm())
+            {
+                <div class="box-body">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fechar</span></button>
+                        <h4 class="modal-title">Manutenção de Perfil</h4>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.idPerfil, new { @class = "control-label col-md-9" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.idPerfil, new { @class = "form-control", @readonly = "readonly" , @id = "txtIdPerfil" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.desPerfil, new { @class = "control-label col-md-9"})
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.desPerfil, new { @class = "form-control", @id = "txtDesPerfil" })
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <br />
+                                <input type="button" value="Salvar" class="btn btn-primary" id="btnSalvar" onclick="javascript: SalvarPerfil();" />
+                                <input type="button" value="Cancelar" class="btn btn-default" onclick="javascript: WMSEscondeModal()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <script type="text/javascript" src="~/Scripts/Cadastro/Perfil.js"></script>
+</body>
+</html>

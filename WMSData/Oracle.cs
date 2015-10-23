@@ -179,6 +179,26 @@ namespace WMSData
             }
         }
 
+        public void AddParameter(string pName, WMSDBTypes.WMSDBType pDbType, int pSize, object pVal, ParameterDirection pDirection)
+        {
+            try
+            {
+                if (objCommand != null)
+                {
+                    if (pDirection == ParameterDirection.Input)
+                        objCommand.Parameters.Add(pName, (OracleDbType)pDbType, pSize, (pVal == null) ? DBNull.Value : pVal, pDirection);
+                    else
+                        objCommand.Parameters.Add(pName, (OracleDbType)pDbType).Direction = ParameterDirection.Output;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
+
     }
+
 }

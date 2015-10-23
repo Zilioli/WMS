@@ -48,6 +48,7 @@
     <Compile Include="Oracle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQL.cs" />
+    <Compile Include="WMSDBTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

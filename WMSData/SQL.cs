@@ -4,102 +4,196 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 using Oracle.ManagedDataAccess.Client;
 
 namespace WMSData
 {
     public class SQL : IData
     {
+        #region Variáveis
+        private SqlConnection objConnection;
+        private SqlCommand objCommand = new SqlCommand();
+        #endregion
+
+        #region Atributos
         public string CONNECTION_STRING
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         public string PROCEDURE
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         public string COMMAND
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         public CommandType COMMAND_TYPE
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
+        #endregion
 
-        public void AddParameter()
+        public void AddParameter(string pName, SqlDbType pSQLDbType, int pSize, object pVal, ParameterDirection pDirection)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (objCommand != null)
+                {
+                    if (pDirection == ParameterDirection.Input)
+                    {
+                        objCommand.Parameters.Add(pName, pSQLDbType, pSize).Value = pVal;
+                    }
+                    else
+                        objCommand.Parameters.Add(pName, pSQLDbType).Direction = ParameterDirection.Output;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool Close()
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Verifica se existe conexão aberta
+                if (objConnection != null)
+                {
+                    if (objConnection.State == ConnectionState.Open)
+                        objConnection.Close(); // Fecha conexão
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                // Finaliza objetos
+                objConnection = null;
+            }
         }
 
         public int ExecuteNonQuery()
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (objConnection.State != ConnectionState.Open)
+                    throw new Exception("Conexão com o DB não está aberta!");
+
+                objCommand.Connection = objConnection;
+                objCommand.CommandType = COMMAND_TYPE;
+                objCommand.CommandText = COMMAND;
+
+                return objCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public IDataReader ExecuteQuery()
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (objConnection.State != ConnectionState.Open)
+                    throw new Exception("Conexão com o DB não está aberta!");
+
+                objCommand.Connection = objConnection;
+                objCommand.CommandType = COMMAND_TYPE;
+                objCommand.CommandText = COMMAND;
+                return objCommand.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool Open()
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                // Verifica se a connection string foi informada
+                if (CONNECTION_STRING == "")
+                    throw new Exception("CONNECTION_STRING não informada.");
 
-        public void AddParameter(string pName, OracleDbType pOracleDbType, int pSize, object pVal, ParameterDirection pDirection)
-        {
-            throw new NotImplementedException();
+                // Instancia objeto de Conexão Oracle
+                objConnection = new SqlConnection(CONNECTION_STRING);
+
+                // Abre Conexão
+                objConnection.Open();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void ClearParameters()
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Verifica se existem parametros a serem excluídos
+                if (objCommand != null)
+                {
+                    if (objCommand.Parameters.Count > 0)
+                        objCommand.Parameters.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void IData()
         {
             throw new NotImplementedException();
+        }
+
+        public void AddParameter(string pName, WMSDBTypes.WMSDBType pDbType, int pSize, object pVal, ParameterDirection pDirection)
+        {
+            try
+            {
+                if (objCommand != null)
+                {
+                    if (pDirection == ParameterDirection.Input)
+                        objCommand.Parameters.Add(pName, (SqlDbType)pDbType, pSize).Value = (pVal == null) ? DBNull.Value : pVal;
+                    else
+                        objCommand.Parameters.Add(pName, (SqlDbType)pDbType).Direction = ParameterDirection.Output;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public object GetParameter(string pName)
+        {
+            throw new NotImplementedException(); if (objCommand != null)
+            {
+                if (objCommand.Parameters[pName] != null)
+                    return objCommand.Parameters[pName].Value;
+            }
+
+            return null;
         }
     }
 }
