@@ -30,5 +30,28 @@ namespace WMS.Controllers
             //List<Perfil> lstPerfil = new List<Models.Perfil>();
             return View(lstPerfil);
         }
+
+        [HttpPost]
+        public ActionResult Funcionario(Funcionario funcionario)
+        {
+
+            if (!ModelState.IsValid) //Check for validation errors
+            {
+                return View(funcionario);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Funcionario()
+        {
+            Turno t = new Turno();
+
+            List<Turno> lstTurnos = t.GetTurnos();
+            ViewBag.lstTurnos = lstTurnos;
+
+            return View();
+        }
+
     }
 }

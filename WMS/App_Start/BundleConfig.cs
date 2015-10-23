@@ -27,7 +27,8 @@ namespace WMS.App_Start
                                "~/Content/plugins/datepicker/daterangepicker-bs3.css"));
             bundles.Add(new StyleBundle("~/Content/plugins/bootstrap-wysihtml5").Include(
                                "~/Content/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"));
-
+            bundles.Add(new StyleBundle("~/Content/plugins/JQueryValidate").Include(
+                              "~/Content/plugins/JQueryValidate/jquery.validate.bootstrap.css"));
 
             // Configurando os arquivos de JS
             bundles.Add(new ScriptBundle("~/Content/plugins/jQuery").Include(
@@ -57,7 +58,15 @@ namespace WMS.App_Start
             bundles.Add(new ScriptBundle("~/Content/plugins/fastclick").Include(
                     "~/Content/plugins/fastclick/fastclick.min.js"));
             bundles.Add(new ScriptBundle("~/Content/dist/js/pages").Include(
-                    "~/Content/dist/js/pages/dashboard.js"));
+                    "~/Content/dist/js/pages/dashboard.js"));          
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.validate*"));
+            
+            /*
+            // Set EnableOptimizations to false for debugging. For more information,
+            // visit http://go.microsoft.com/fwlink/?LinkId=301862
+            BundleTable.EnableOptimizations = true;
+            */
         }
     }
 }
