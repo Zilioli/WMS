@@ -61,7 +61,9 @@ namespace WMS.App_Start
                     "~/Content/dist/js/pages/dashboard.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
-            
+            bundles.Add(new ScriptBundle("~/Scripts").Include(
+                        "~/Scripts/WMSUtil.js"));
+
             /*
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
