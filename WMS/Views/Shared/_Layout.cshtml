@@ -1,4 +1,10 @@
 ﻿@using System.Web.Optimization
+
+@if (Session["Usuario"] == null)
+{
+    Response.Redirect("~/Login");
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -310,6 +316,7 @@
                             <li class="active"><a href="/Cadastro/Perfil"><i class="fa fa-caret-right"></i>Perfil</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Aplicação</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Menu</a></li>
+                            <li class="active"><a href="/Cadastro/Fornecedor"><i class="fa fa-caret-right"></i>Fornecedor</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Funcionario</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Situação</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Impressora</a></li>

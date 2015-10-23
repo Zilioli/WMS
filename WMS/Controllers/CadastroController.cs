@@ -57,6 +57,7 @@ namespace WMS.Controllers
 
         #endregion
 
+        #region DeletarPerfil
         public JsonResult DeletarPerfil(Perfil pVO)
         {
             wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
@@ -75,7 +76,9 @@ namespace WMS.Controllers
                 objCadastro = null;
             }
         }
+        #endregion
 
+        #region ManutencaoPerfil
         public ActionResult ManutencaoPerfil(Perfil pVO)
         {
             wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
@@ -97,7 +100,9 @@ namespace WMS.Controllers
                 objCadastro = null;
             }
         }
+        #endregion
 
+        #region SalvarPerfil
         public JsonResult SalvarPerfil( Perfil pVO)
         {
             wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
@@ -117,10 +122,57 @@ namespace WMS.Controllers
                 objCadastro = null;
             }
         }
-
+        #endregion
         /*--------------------------------------------------------------------
          *--------------------------------------------------------------------
          * PERFIL
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
+
+
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * FORNECEDOR
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
+        /// <summary>
+        /// Carrega a tela inicial de Manutenção de Fornecedores
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Fornecedor()
+        {
+            wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            List<Fornecedor> lstFornecedor = new List<Models.Fornecedor>();
+            Models.Fornecedor objFornecedor = new Models.Fornecedor();
+
+            try
+            {
+                objFornecedor.idFornecedor = -1;
+                lstFornecedor = serializer.Deserialize<List<Fornecedor>>(objCadastro.ListarFornecedor(JsonConvert.SerializeObject(objFornecedor)));
+                return View(lstFornecedor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objCadastro.Close();
+                objCadastro = null;
+                serializer = null;
+                lstFornecedor = null;
+            }
+        }
+
+        public ActionResult ManutencaoFornecedor()
+        {
+            return View();
+        }
+
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * FORNECEDOR
          *--------------------------------------------------------------------
          *--------------------------------------------------------------------*/
     }

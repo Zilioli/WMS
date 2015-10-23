@@ -1,0 +1,117 @@
+﻿@model WMS.Models.Fornecedor
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ManutencaoFornecedor</title>
+</head>
+<body>
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            @using (Html.BeginForm())
+            {
+                <div class="box-body">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fechar</span></button>
+                        <h4 class="modal-title">Manutenção de Perfil</h4>
+                    </div>
+                    <div class="form-group">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a data-toggle="tab" href="#sectionFornecedor">Fornecedor</a></li>
+                            <li><a data-toggle="tab" href="#sectionInfAdicionais">Informações Adicionais</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-body">
+                        <div id="sectionFornecedor" class="tab-pane fade in active">
+                            <div class="row">
+                                <div class="form-group">
+
+                                    <div class="row">
+                                        <div class="col-sm-12  pull-left">
+                                            <div class="col-lg-6">
+                                                @Html.Label("Código Empresa", new { @class = "" })
+                                                <div class="input-group input-group-sm">
+                                                    @Html.TextBox("IdEmpr", "", new { @class = "form-control", @readonly = "readonly", @id = "txtIdEmpresa" })
+                                                    <span class="input-group-btn">
+                                        
+                                                        <a id="btnSearch" class="btn btn-info btn-flat" href="#">
+                                                            &nbsp;<span class='glyphicon glyphicon-search'></span></a>
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @Html.Label("Empresa", new { @class = "" })
+                                                @Html.TextBox("nmEmp", "", new { @class = "form-control input-sm", @id = "txtNmEmpresa", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12  pull-left">
+                                            <div class="col-sm-6">
+                                                @Html.LabelFor(model => model.idFornecedor, new { @class = "" })
+                                                @Html.TextBoxFor(model => model.idFornecedor, new { @class = "form-control input-sm", @readonly = "readonly", @id = "txtIdFornecedor" })
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @Html.LabelFor(model => model.nmFornecedor, new { @class = "" })
+                                                @Html.TextBoxFor(model => model.nmFornecedor, new { @class = "form-control input-sm", @id = "txtNmFornecedor" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-12  pull-left">
+                                            <div class="col-sm-12">
+                                                @Html.LabelFor(model => model.razaoSocial, new { @class = "" })
+                                                @Html.TextBoxFor(model => model.razaoSocial, new { @class = "form-control  input-sm", @id = "txtRazaoSocial" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-12  pull-left">
+                                            <div class="col-sm-6">
+                                                @Html.LabelFor(model => model.CNPJ, new { @class = "" })
+                                                @Html.TextBoxFor(model => model.CNPJ, new { @class = "form-control input-sm", @id = "txtCNPJ" })
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @Html.LabelFor(model => model.cdIncricaoEstadual, new { @class = "" })
+                                                @Html.TextBoxFor(model => model.cdIncricaoEstadual, new { @class = "form-control input-sm", @id = "txtCdIncricaoEstadual" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="sectionInfAdicionais" class="tab-pane fade">
+                            aeui sao as inf adicionais
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <br />
+                                <input type="button" value="Salvar" class="btn btn-primary" id="btnSalvar" onclick="javascript: SalvarPerfil();" />
+                                <input type="button" value="Cancelar" class="btn btn-default" onclick="javascript: WMSEscondeModal()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -16,5 +16,8 @@ namespace WMSServices
 
         [OperationContract]
         string ListarPerfil(string pJSONPerfil);
+
+        [OperationContract]
+        string ListarFornecedor(string pJSONFornecedor);
     }
 }

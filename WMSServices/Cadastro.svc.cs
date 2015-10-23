@@ -36,7 +36,7 @@ namespace WMSServices
                 PKG_NAME = "SYS.PKG_Cadastrar.";
                 SQL = false;
             }
-            else if (ConfigurationManager.AppSettings["BD_WMS"] == "SQL")
+            else if (ConfigurationManager.AppSettings["WMS_BD"] == "SQL")
                 objDATA = new WMSData.SQL();
 
             // Recupera a string de Conexão
@@ -171,5 +171,90 @@ namespace WMSServices
          * PERFIL
          *--------------------------------------------------------------------
          *--------------------------------------------------------------------*/
+
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * FORNECEDOR
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
+        #region ListarFornecedor
+        public string ListarFornecedor(string pJSONFornecedor)
+        {
+            Fornecedor objFornecedor;
+            List<Fornecedor> lstFornecedor = new List<Fornecedor>();
+            IDataReader objResultado;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Fornecedor pFornecedor = serializer.Deserialize<Fornecedor>(pJSONFornecedor);
+            try
+            {
+                // Abre conexão com o DB
+                objDATA.Open();
+
+                // Indica o tipo de comando
+                objDATA.COMMAND_TYPE = CommandType.StoredProcedure;
+
+                // Comando a ser executado no DB
+                objDATA.COMMAND = PKG_NAME + "LISTAR_FORNECEDOR";
+
+                // Adiciona os parametros a chamada da procedure
+                objDATA.AddParameter("pIDFORNECEDOR", WMSDBTypes.WMSDBType.INT32, 3, pFornecedor.idFornecedor, ParameterDirection.Input);
+
+                if (!SQL)
+                {
+                    objDATA.AddParameter("C_CUR", WMSDBTypes.WMSDBType.RefCursor, 0, null, ParameterDirection.Output);
+
+                    // Executa a procedure
+                    objDATA.ExecuteNonQuery();
+                }
+
+                // Recupera o Cursor de Saída
+                objResultado = (!SQL) ? ((OracleRefCursor)objDATA.GetParameter("C_CUR")).GetDataReader() : objDATA.ExecuteQuery();
+
+                // Percorre o resultado do cursor e adiciona os itens na lista
+                while (objResultado.Read())
+                {
+                    // Preenche o objeto
+                    objFornecedor = new Fornecedor();
+                    objFornecedor.idFornecedor = int.Parse(objResultado["IDFORNECEDOR"].ToString());
+                    objFornecedor.nmFornecedor = objResultado["NMFORNECEDOR"].ToString();
+
+                    // Adiciona o item na lista
+                    lstFornecedor.Add(objFornecedor);
+
+                    // Finaliza o objeto
+                    objFornecedor = null;
+                }
+
+                // Fecha o objeto
+                objResultado.Close();
+
+                // Retorna a lista de perfil
+                return JsonConvert.SerializeObject(lstFornecedor);
+            }
+            catch (Exception ex)
+            {
+                // Tratamento de Exceção
+                throw ex;
+            }
+            finally
+            {
+                // Verifica se existe conexão aberta e fecha
+                if (objDATA != null)
+                    objDATA.Close();
+
+                // Finaliza os objetos
+                objResultado = null;
+                objFornecedor = null;
+                lstFornecedor = null;
+            }
+        }
+        #endregion
+
+        /*--------------------------------------------------------------------
+         *--------------------------------------------------------------------
+         * FORNECEDOR
+         *--------------------------------------------------------------------
+         *--------------------------------------------------------------------*/
+
     }
 }

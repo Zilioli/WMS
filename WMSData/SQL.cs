@@ -42,26 +42,6 @@ namespace WMSData
         }
         #endregion
 
-        public void AddParameter(string pName, SqlDbType pSQLDbType, int pSize, object pVal, ParameterDirection pDirection)
-        {
-            try
-            {
-                if (objCommand != null)
-                {
-                    if (pDirection == ParameterDirection.Input)
-                    {
-                        objCommand.Parameters.Add(pName, pSQLDbType, pSize).Value = pVal;
-                    }
-                    else
-                        objCommand.Parameters.Add(pName, pSQLDbType).Direction = ParameterDirection.Output;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         public bool Close()
         {
             try
@@ -174,9 +154,9 @@ namespace WMSData
                 if (objCommand != null)
                 {
                     if (pDirection == ParameterDirection.Input)
-                        objCommand.Parameters.Add(pName, (SqlDbType)pDbType, pSize).Value = (pVal == null) ? DBNull.Value : pVal;
+                        objCommand.Parameters.Add(pName, WMSDBTypes.SQL(pDbType), pSize).Value = (pVal == null) ? DBNull.Value : pVal;
                     else
-                        objCommand.Parameters.Add(pName, (SqlDbType)pDbType).Direction = ParameterDirection.Output;
+                        objCommand.Parameters.Add(pName,  WMSDBTypes.SQL(pDbType)).Direction = ParameterDirection.Output;
                 }
             }
             catch (Exception ex)
