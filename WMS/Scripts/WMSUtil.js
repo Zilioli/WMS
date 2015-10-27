@@ -15,7 +15,7 @@ function WMSAjax(urlController, typeAjax, voModel, funcSuccess, funcError) {
         contentType: 'application/json; charset=utf-8;',
         dataType: 'json',
         success: function (response) {
-            eval(funcSuccess);
+            eval(funcSuccess + "( "+ response + ")");
         },
         error: function (x) {
             eval(funcError);
@@ -139,3 +139,7 @@ function WMSCarregarTela_Click(idObject, urlController, vo) {
     });
 }
 
+function WMSConsultarCEP(voModel,funcSuccess)
+{
+    WMSAjax("/Cadastro/ConsultarCEP", "POST", voModel, funcSuccess, WMSErro)
+}

@@ -1016,6 +1016,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\WMSUtil.js" />
+    <None Include="Service References\wcfUtil\Util.disco" />
+    <None Include="Service References\wcfUtil\configuration91.svcinfo" />
+    <None Include="Service References\wcfUtil\configuration.svcinfo" />
+    <None Include="Service References\wcfUtil\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1037,6 +1044,11 @@
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\wcfCadastro\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wcfUtil\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1163,6 +1175,13 @@
     <Content Include="Views\Cadastro\ManutencaoPerfil.cshtml" />
     <Content Include="Views\Cadastro\Fornecedor.cshtml" />
     <Content Include="Views\Cadastro\ManutencaoFornecedor.cshtml" />
+    <None Include="Service References\wcfUtil\Util.wsdl" />
+    <None Include="Service References\wcfUtil\Util.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wcfUtil\Util1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1174,8 +1193,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Estoque\" />
     <Folder Include="Views\Expedicao\" />
-    <Folder Include="Views\FuncionarioModel\" />
-    <Folder Include="Views\Funcionario\" />
     <Folder Include="Views\Inventario\" />
     <Folder Include="Views\Perfil\" />
     <Folder Include="Views\Recebimento\" />
@@ -1186,6 +1203,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\wcfCadastro\" />
+    <WCFMetadataStorage Include="Service References\wcfUtil\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

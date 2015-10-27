@@ -10,13 +10,15 @@ namespace WMS.Models
 {
     public class Fornecedor
     {
-        private Empresa Empresa
+
+        public Empresa Empresa
         {
             get;
             set;
         }
 
-        private CEP CEP
+        [Required(ErrorMessage = "Informações do CEP são obrigatórios")]
+        public CEP CEP
         {
             get;
             set;
@@ -32,6 +34,7 @@ namespace WMS.Models
 
         [JsonProperty("razaoSocial")]
         [Display(Name = "Razão Social")]
+        [Required(ErrorMessage = "Razão Social é obrigatório")]
         public string razaoSocial
         {
             get;
@@ -40,6 +43,7 @@ namespace WMS.Models
 
         [JsonProperty("nmFornecedor")]
         [Display(Name = "Nome Fornecedor")]
+        [Required(ErrorMessage = "Nome Fornecedor é obrigatório")]
         public string nmFornecedor
         {
             get;
@@ -48,6 +52,7 @@ namespace WMS.Models
 
         [JsonProperty("CNPJ")]
         [Display(Name = "CNPJ")]
+        [Required(ErrorMessage = "CNPJ é obrigatório")]
         public string CNPJ
         {
             get;
@@ -56,6 +61,7 @@ namespace WMS.Models
 
         [JsonProperty("cdIncricaoEstatual")]
         [Display(Name = "Inscrição Estadual")]
+        [Required(ErrorMessage = "Inscrição Estadual é obrigatório")]
         public string cdIncricaoEstadual
         {
             get;

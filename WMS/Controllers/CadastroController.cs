@@ -170,6 +170,24 @@ namespace WMS.Controllers
             return View();
         }
 
+        public JsonResult ConsultarCEP(CEP pVO)
+        {
+            wcfUtil.UtilClient objUtil = new wcfUtil.UtilClient();
+            try
+            {
+                return Json(objUtil.ConsultarCep(JsonConvert.SerializeObject(pVO)));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objUtil.Close();
+                objUtil = null;
+            }
+        }
+
         /*--------------------------------------------------------------------
          *--------------------------------------------------------------------
          * FORNECEDOR

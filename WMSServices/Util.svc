@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="WMSServices.Util" CodeBehind="Util.svc.cs" %>
