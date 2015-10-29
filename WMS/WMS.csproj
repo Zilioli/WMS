@@ -1015,6 +1015,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Util\CEP.js" />
     <Content Include="Scripts\WMSUtil.js" />
     <None Include="Service References\wcfUtil\Util.disco" />
     <None Include="Service References\wcfUtil\configuration91.svcinfo" />
@@ -1030,6 +1031,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\UtilController.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -1182,6 +1184,7 @@
     <None Include="Service References\wcfUtil\Util1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Util\CEP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

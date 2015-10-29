@@ -1,4 +1,6 @@
-﻿/*
+﻿var WMSDataAjax;
+
+/*
  * urlController: URL do Controller em que a ação deverá ser executada
  * typeAjax: Tipo do AJAX (POST/GET)
  * voModel: VO que deverá ser passada como parametro para o Controller
@@ -14,10 +16,11 @@ function WMSAjax(urlController, typeAjax, voModel, funcSuccess, funcError) {
         type: typeAjax,
         contentType: 'application/json; charset=utf-8;',
         dataType: 'json',
-        success: function (response) {
-            eval(funcSuccess + "( "+ response + ")");
+        success: function (data) {
+            eval(funcSuccess + "( " + data + ")");
         },
         error: function (x) {
+            alert("opa deu erro");
             eval(funcError);
         }
     });
@@ -139,7 +142,44 @@ function WMSCarregarTela_Click(idObject, urlController, vo) {
     });
 }
 
+/*
+ * voModel:  VO CEP preenchido para consulta
+ * funcSuccess: Função que será chamada quando a ação do componente for confirmada
+ * Exemplo de chamada
+ * WMSConsultarCEP({Cep:05437001}, "RetornoCEP");
+ */
 function WMSConsultarCEP(voModel,funcSuccess)
 {
-    WMSAjax("/Cadastro/ConsultarCEP", "POST", voModel, funcSuccess, WMSErro)
+    WMSAjax("../Util/ConsultarCEP", "POST", voModel, funcSuccess, WMSErro)
 }
+
+function WMSCarregaPopUpCEP(idObject,  vo)
+{  
+    $(idObject).click(function () {
+        $('#modal-container-cep').load("../Util/CEP", vo, function () {
+                $('#modal-container-cep').modal();
+            });
+        });   
+}
+
+
+/*
+ * Função para sempre deixar os Painels(Modals) centralizados na tela
+ */
+$(function () {
+    function reposition() {
+        var modal = $(this),
+            dialog = modal.find('.modal-dialog');
+        modal.css('display', 'block');
+
+        // Dividing by two centers the modal exactly, but dividing by three 
+        // or four works better for larger screens.
+        dialog.css("margin-top", Math.max(0, ($(window).height() - dialog.height()) / 2));
+    }
+    // Reposition when a modal is shown
+    $('.modal').on('show.bs.modal', reposition);
+    // Reposition when the window is resized
+    $(window).on('resize', function () {
+        $('.modal:visible').each(reposition);
+    });
+});

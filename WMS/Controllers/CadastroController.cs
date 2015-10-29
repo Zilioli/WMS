@@ -103,13 +103,13 @@ namespace WMS.Controllers
         #endregion
 
         #region SalvarPerfil
-        public JsonResult SalvarPerfil( Perfil pVO)
+        public JsonResult SalvarPerfil(Perfil pVO)
         {
             wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
 
             try
             {
-                objCadastro.ManutencaoPerfil((pVO.idPerfil == 0 ? "I":"A"), JsonConvert.SerializeObject(pVO));
+                objCadastro.ManutencaoPerfil((pVO.idPerfil == 0 ? "I" : "A"), JsonConvert.SerializeObject(pVO));
                 return Json("OK");
             }
             catch (Exception ex)
@@ -163,19 +163,19 @@ namespace WMS.Controllers
                 serializer = null;
                 lstFornecedor = null;
             }
-            }
-
-        public ActionResult ManutencaoFornecedor()
-        {
-            return View();
         }
 
-        public JsonResult ConsultarCEP(CEP pVO)
+        public ActionResult ManutencaoFornecedor(Fornecedor pVO)
         {
-            wcfUtil.UtilClient objUtil = new wcfUtil.UtilClient();
+            wcfCadastro.CadastroClient objCadastro = new wcfCadastro.CadastroClient();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
             try
             {
-                return Json(objUtil.ConsultarCep(JsonConvert.SerializeObject(pVO)));
+                if (pVO.idFornecedor > 0)
+                    pVO = serializer.Deserialize<List<Fornecedor>>(objCadastro.ListarFornecedor(JsonConvert.SerializeObject(pVO)))[0];
+
+                return View(pVO);
             }
             catch (Exception ex)
             {
@@ -183,8 +183,9 @@ namespace WMS.Controllers
             }
             finally
             {
-                objUtil.Close();
-                objUtil = null;
+                objCadastro.Close();
+                objCadastro = null;
+                serializer = null;
             }
         }
 

@@ -19,3 +19,22 @@ function RetornoCEP(objCEP)
     $('#txtMunicipio').val(objCEP.Municipio);
     $('#txtEstado').val(objCEP.Estado);
 }
+
+function EditarFornecedor(pidFornecedor) {
+    WMSLoadTela("ManutencaoFornecedor", { idFornecedor: pidFornecedor });
+}
+
+function ExcluirFornecedor(idFornecedor) {
+    WMSConfirmar("Deseja realmente excluir o Fornecedor?", "Exclusão de Fornecedor", "ApagarFornecedor(" + idFornecedor+ ")")
+}
+
+function ApagarFornecedor(idFornecedor) {
+    ExcluirSucesso();
+    return;
+}
+
+function ExcluirSucesso() {
+    WMSEscondeConfirm();
+    WMSMensagem("Fornecedor excluído", "SUCESSO", "Sucesso", "window.location = 'Fornecedor';");
+    return;
+}

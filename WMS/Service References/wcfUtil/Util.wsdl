@@ -12,16 +12,35 @@
   <wsdl:message name="IUtil_ConsultarCep_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarCepResponse" />
   </wsdl:message>
+  <wsdl:message name="IUtil_ConsultarEndereco_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarEndereco" />
+  </wsdl:message>
+  <wsdl:message name="IUtil_ConsultarEndereco_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarEnderecoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUtil">
     <wsdl:operation name="ConsultarCep">
       <wsdl:input wsaw:Action="http://tempuri.org/IUtil/ConsultarCep" message="tns:IUtil_ConsultarCep_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUtil/ConsultarCepResponse" message="tns:IUtil_ConsultarCep_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarEndereco">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUtil/ConsultarEndereco" message="tns:IUtil_ConsultarEndereco_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUtil/ConsultarEnderecoResponse" message="tns:IUtil_ConsultarEndereco_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUtil" type="tns:IUtil">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ConsultarCep">
       <soap:operation soapAction="http://tempuri.org/IUtil/ConsultarCep" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarEndereco">
+      <soap:operation soapAction="http://tempuri.org/IUtil/ConsultarEndereco" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -22,5 +22,8 @@ namespace WMSServices
     {
         [OperationContract]
         string ConsultarCep(string pJSONCEP);
+
+        [OperationContract]
+        string ConsultarEndereco(string pJSONCEP);
     }
 }

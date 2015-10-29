@@ -181,6 +181,7 @@ namespace WMSServices
         public string ListarFornecedor(string pJSONFornecedor)
         {
             Fornecedor objFornecedor;
+            CEP objCEP;
             List<Fornecedor> lstFornecedor = new List<Fornecedor>();
             IDataReader objResultado;
             JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -217,6 +218,21 @@ namespace WMSServices
                     objFornecedor = new Fornecedor();
                     objFornecedor.idFornecedor = int.Parse(objResultado["IDFORNECEDOR"].ToString());
                     objFornecedor.nmFornecedor = objResultado["NMFORNECEDOR"].ToString();
+                    objFornecedor.razaoSocial = objResultado["RAZAOSOCIAL"].ToString();
+                    objFornecedor.CNPJ = objResultado["CNPJ"].ToString();
+                    objFornecedor.cdIncricaoEstadual = objResultado["CDINSCRICAOESTADUAL"].ToString();
+
+                    // TESTE
+                    objFornecedor.CEP = new CEP();
+                    objFornecedor.CEP.Cep = "14801230";
+                    objFornecedor.CEP.Bairro = "Centro";
+                    objFornecedor.CEP.Endereco = "Professor Jorge Corrêa";
+                    objFornecedor.CEP.Estado = "SP";
+                    objFornecedor.CEP.Municipio = "Araraquara";
+
+                    objFornecedor.Empresa = new Empresa();
+                    objFornecedor.Empresa.idEmpresa = 1;
+                    objFornecedor.Empresa.nmEmpresa = "Empresa de teste";
 
                     // Adiciona o item na lista
                     lstFornecedor.Add(objFornecedor);

@@ -20,6 +20,12 @@ namespace WMS.wcfUtil {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUtil/ConsultarCep", ReplyAction="http://tempuri.org/IUtil/ConsultarCepResponse")]
         System.Threading.Tasks.Task<string> ConsultarCepAsync(string pJSONCEP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUtil/ConsultarEndereco", ReplyAction="http://tempuri.org/IUtil/ConsultarEnderecoResponse")]
+        string ConsultarEndereco(string pJSONCEP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUtil/ConsultarEndereco", ReplyAction="http://tempuri.org/IUtil/ConsultarEnderecoResponse")]
+        System.Threading.Tasks.Task<string> ConsultarEnderecoAsync(string pJSONCEP);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace WMS.wcfUtil {
         
         public System.Threading.Tasks.Task<string> ConsultarCepAsync(string pJSONCEP) {
             return base.Channel.ConsultarCepAsync(pJSONCEP);
+        }
+        
+        public string ConsultarEndereco(string pJSONCEP) {
+            return base.Channel.ConsultarEndereco(pJSONCEP);
+        }
+        
+        public System.Threading.Tasks.Task<string> ConsultarEnderecoAsync(string pJSONCEP) {
+            return base.Channel.ConsultarEnderecoAsync(pJSONCEP);
         }
     }
 }
