@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using WMS.App_Start;
 using WMS.Models;
 
 namespace WMS.Controllers
@@ -25,7 +26,7 @@ namespace WMS.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return WMSUtil.ReturnWMSException(ex);
             }
             finally
             {
@@ -47,13 +48,18 @@ namespace WMS.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                return WMSUtil.ReturnWMSException(ex);
             }
             finally
             {
                 objUtil.Close();
                 objUtil = null;
             }
+        }
+
+        public ActionResult ERROR()
+        {
+            return View();
         }
     }
 }

@@ -1031,6 +1031,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WMSUtil.cs" />
     <Compile Include="Controllers\UtilController.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1185,6 +1186,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Util\CEP.cshtml" />
+    <Content Include="Views\Util\ERROR.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

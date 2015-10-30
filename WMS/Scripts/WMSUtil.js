@@ -7,7 +7,7 @@
  * funcSuccess: Função que deverá ser executada após a execução ser finalizada com sucesso
  * funcError: Função que deverá ser executada após a execução ser finalizada com erro
  * Exemplo de chamada
- * WMSAjax("/Cadastro/SalvarPerfil", "POST", Perfil, "SalvarPerfilSucesso()", "WMSErro(x)");
+ * WMSAjax("/Cadastro/SalvarPerfil", "POST", Perfil, "SalvarPerfilSucesso()", "WMSErro");
  */
 function WMSAjax(urlController, typeAjax, voModel, funcSuccess, funcError) {
     $.ajax({
@@ -17,17 +17,20 @@ function WMSAjax(urlController, typeAjax, voModel, funcSuccess, funcError) {
         contentType: 'application/json; charset=utf-8;',
         dataType: 'json',
         success: function (data) {
-            eval(funcSuccess + "( " + data + ")");
+            if (data.Success == false)
+                eval(funcError + '("' + data.ErrorMessage + '")');
+            else {
+                eval(funcSuccess + "( " + data + ")");
+            }
         },
-        error: function (x) {
-            alert("opa deu erro");
-            eval(funcError);
+        error: function (err) {
+            alert("Erro inesperado");
         }
     });
 }
 
 function WMSErro(error) {
-    WMSMensagem(error.message, "ERRO", "ERRO");
+    WMSMensagem(error, "ERRO", "ERRO");
 }
 
 /*

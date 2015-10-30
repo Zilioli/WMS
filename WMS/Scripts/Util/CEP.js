@@ -53,6 +53,14 @@ function ConsultarEndereco()
     $("#gridCEP").html("<div class='overlay' style='vertical-align:central;align:center'><i class='fa fa-refresh fa-spin'>Carregando...</i></div>");
 
     var CEP = { Endereco: $("#modal-container-cep").find('input[id="txtCEP"]').val() };
-    WMSAjax("../Util/ConsultarEndereco", "POST", CEP, "ProcessarJSONCEP", "WMSErro");
+    WMSAjax("../Util/ConsultarEndereco", "POST", CEP, "ProcessarJSONCEP", "ERROR_CEP");
 
+}
+
+function ERROR_CEP(Mensagem)
+{
+    WMSMensagem(Mensagem, "ERRO", "ERRO");
+    $("#modal-container-cep").find('input[id="txtCEP"]').attr('disabled', false);
+
+    $("#gridCEP").html("");
 }
