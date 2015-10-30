@@ -8,23 +8,31 @@
  * WMSAjax("/Cadastro/SalvarPerfil", "POST", Perfil, "SalvarPerfilSucesso()", "WMSErro(x)");
  */
 function WMSAjax(urlController, typeAjax, voModel, funcSuccess, funcError) {
+
     $.ajax({
         url: urlController,
         data: JSON.stringify(voModel),
         type: typeAjax,
         contentType: 'application/json; charset=utf-8;',
         dataType: 'json',
+
         success: function (response) {
-            eval(funcSuccess);
+            eval(funcSuccess)            
         },
         error: function (x) {
             eval(funcError);
         }
-    });
+    });    
 }
 
 function WMSErro(error) {
     WMSMensagem(error.message, "ERRO", "ERRO");
+}
+
+function alerta()
+{
+    alert('oi');
+    $.unblockUI;
 }
 
 /*
@@ -35,38 +43,61 @@ function WMSErro(error) {
  * WMSMensagem("Perfil Salvo", "SUCESSO", "Sucesso");
  */
 function WMSMensagem(mensagem, tipo, header, funcOK) {
-
-    $("#alert_class").removeClass();
-    $("#btnOKModal").removeClass();
-
-    if (tipo == "ALERTA")
-    {
+    
+    $("#icon_alert").removeClass();
+    $("#btnOKModal").removeClass();             
+    $("#alert_message").removeClass();
+    $("#blockui").off('click');
+      
+    $("#alert_header span").text(header);
+    $("#alert_message span").text(mensagem);
+   
+    if (tipo == "ALERTA") {       
+        $("#alert_message").addClass("alert alert-warning alert-dismissable");
         $("#btnOKModal").addClass("btn btn-warning");
-        $("#alert_class").addClass("alert alert-warning alert-dismissable");
+        $("#icon_alert").addClass("icon fa fa-warning");
     }
-    else if (tipo == "SUCESSO")
-    {
-        $("#alert_class").addClass("alert alert-success alert-dismissable");
+    else if (tipo == "SUCESSO") {       
+        $("#alert_message").addClass("alert alert-success alert-dismissable");
         $("#btnOKModal").addClass("btn btn-success");
+        $("#icon_alert").addClass("icon fa fa-check");
     }
-    else if (tipo == "ERRO")
-    {
-        $("#alert_class").addClass("alert alert-danger alert-dismissable");
+    else if (tipo == "ERRO") {
+        $("#alert_message").addClass("alert alert-danger alert-dismissable");
         $("#btnOKModal").addClass("btn btn-danger");
+        $("#icon_alert").addClass("icon fa fa-ban");
     }
-    else if (tipo == "INFO")
-    {
-        $("#alert_class").addClass("alert alert-info alert-dismissable");
+    else if (tipo == "INFO") {
+        $("#alert_message").addClass("alert alert-info alert-dismissible");
         $("#btnOKModal").addClass("btn btn-info");
+        $("#icon_alert").addClass("icon fa fa-info");
     }
-
-    $("#alert_header").html(header);
-    $("#alert_message").html(mensagem);
-    $('#AlertaModal').modal('show');
 
     if (funcOK != null) {
-        $("#AlertaModal").on('click', "#btnOKModal", function () {
-            eval(funcOK);
+
+        //necessario para o problema do segundo click do blockui
+        $('#blockui').click(function () {
+            $.unblockUI();
+            return false;
+        });
+
+        $("#blockui").on('click', "#btnOKModal", function () {
+            eval(funcOK);            
+        });
+
+        $.blockUI({
+            message: $("#blockui"),
+            centerX: 0
+        });           
+    }
+    else {
+
+        $("#btnOKModal").remove();
+
+        $.blockUI({
+            message: $("#blockui"),
+            centerX: 0,
+            timeout: 2000
         });
     }
 }
@@ -78,20 +109,18 @@ function WMSMensagem(mensagem, tipo, header, funcOK) {
  * Exemplo de chamada
  * WMSConfirmar("Deseja realmente excluir o Perfil?", "Exclusão de Perfil", "ApagarPerfil(" + idPerfil + ")")
  */
-function WMSConfirmar(mensagem, header,funcOK)
-{
+function WMSConfirmar(mensagem, header, funcOK) {
     $("#confirmMessage").html(mensagem);
     $("#confirmHeader").html(header);
     $('#ConfirmModal').modal('show');
 
     $("#ConfirmModal").on('click', "#actionConfirmModal", function () {
-        if(funcOK != null)
+        if (funcOK != null)
             eval(funcOK);
-        });
+    });
 }
 
-function WMSEscondeAlertaModal()
-{
+function WMSEscondeAlertaModal() {
     $('#AlertaModal').modal('toggle');
 }
 
@@ -100,14 +129,12 @@ function WMSEscondeModal() {
     $('#modal').html("");
 }
 
-function WMSEscondeConfirm()
-{
+function WMSEscondeConfirm() {
     $('#ConfirmModal').modal('toggle');
 }
 
 
-function WMSLoading()
-{
+function WMSLoading() {
     $('#pleaseWaitDialog').modal('show');
 }
 
@@ -117,8 +144,7 @@ function WMSLoading()
  * Exemplo de chamada
  * WMSCarregarTela("ManutencaoPerfil", {idPerfil:});
  */
-function WMSLoadTela(urlController, vo)
-{
+function WMSLoadTela(urlController, vo) {
     $('#modal').load(urlController, vo, function () {
         $('#modal').modal();
     })
