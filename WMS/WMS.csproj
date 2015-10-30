@@ -991,6 +991,7 @@
     <Content Include="Content\plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="Content\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Content\plugins\input-mask\phone-codes\phone-codes.json" />
+    <Content Include="Scripts\Cadastro\Fornecedor.js" />
     <Content Include="Scripts\Cadastro\Funcionario.js" />
     <Content Include="Scripts\Cadastro\Perfil.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1016,7 +1017,15 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Util\CEP.js" />
     <Content Include="Scripts\WMSUtil.js" />
+    <None Include="Service References\wcfUtil\Util.disco" />
+    <None Include="Service References\wcfUtil\configuration91.svcinfo" />
+    <None Include="Service References\wcfUtil\configuration.svcinfo" />
+    <None Include="Service References\wcfUtil\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1024,6 +1033,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\UtilController.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -1031,10 +1041,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Funcionario.cs" />
+    <Compile Include="Models\CEP.cs" />
+    <Compile Include="Models\Empresa.cs" />
+    <Compile Include="Models\Fornecedor.cs" />
     <Compile Include="Models\Perfil.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\wcfCadastro\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wcfUtil\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1159,6 +1177,16 @@
     </None>
     <Content Include="Views\Cadastro\Funcionario.cshtml" />
     <Content Include="Views\Cadastro\ManutencaoPerfil.cshtml" />
+    <Content Include="Views\Cadastro\Fornecedor.cshtml" />
+    <Content Include="Views\Cadastro\ManutencaoFornecedor.cshtml" />
+    <None Include="Service References\wcfUtil\Util.wsdl" />
+    <None Include="Service References\wcfUtil\Util.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wcfUtil\Util1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Util\CEP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1170,8 +1198,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Estoque\" />
     <Folder Include="Views\Expedicao\" />
-    <Folder Include="Views\FuncionarioModel\" />
-    <Folder Include="Views\Funcionario\" />
     <Folder Include="Views\Inventario\" />
     <Folder Include="Views\Perfil\" />
     <Folder Include="Views\Recebimento\" />
@@ -1182,6 +1208,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\wcfCadastro\" />
+    <WCFMetadataStorage Include="Service References\wcfUtil\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

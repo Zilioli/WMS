@@ -18,6 +18,12 @@
   <wsdl:message name="ICadastro_ListarPerfil_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarPerfilResponse" />
   </wsdl:message>
+  <wsdl:message name="ICadastro_ListarFornecedor_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarFornecedor" />
+  </wsdl:message>
+  <wsdl:message name="ICadastro_ListarFornecedor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarFornecedorResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICadastro">
     <wsdl:operation name="ManutencaoPerfil">
       <wsdl:input wsaw:Action="http://tempuri.org/ICadastro/ManutencaoPerfil" message="tns:ICadastro_ManutencaoPerfil_InputMessage" />
@@ -26,6 +32,10 @@
     <wsdl:operation name="ListarPerfil">
       <wsdl:input wsaw:Action="http://tempuri.org/ICadastro/ListarPerfil" message="tns:ICadastro_ListarPerfil_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICadastro/ListarPerfilResponse" message="tns:ICadastro_ListarPerfil_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarFornecedor">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICadastro/ListarFornecedor" message="tns:ICadastro_ListarFornecedor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICadastro/ListarFornecedorResponse" message="tns:ICadastro_ListarFornecedor_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICadastro" type="tns:ICadastro">
@@ -41,6 +51,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarPerfil">
       <soap:operation soapAction="http://tempuri.org/ICadastro/ListarPerfil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarFornecedor">
+      <soap:operation soapAction="http://tempuri.org/ICadastro/ListarFornecedor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

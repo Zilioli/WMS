@@ -1,4 +1,10 @@
 ﻿@using System.Web.Optimization
+
+@if (Session["Usuario"] == null)
+{
+    Response.Redirect("~/Login");
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +21,8 @@
 
     @Styles.Render("~/Content/plugins/bootstrap-wysihtml5")
     @Styles.Render("~/Content/plugins/JQueryValidate")
-
-
+    
+   
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -313,6 +319,7 @@
                             <li class="active"><a href="/Cadastro/Perfil"><i class="fa fa-caret-right"></i>Perfil</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Aplicação</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Menu</a></li>
+                            <li class="active"><a href="/Cadastro/Fornecedor"><i class="fa fa-caret-right"></i>Fornecedor</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Funcionario</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Situação</a></li>
                             <li class="active"><a href="#"><i class="fa fa-caret-right"></i>Impressora</a></li>
@@ -418,9 +425,9 @@
                     <small>Sistema de Gerenciamento de Armazém</small>
                 </h1>
                 @*<ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Página Inicial</li>
-                    </ol>*@
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">Página Inicial</li>
+                </ol>*@
             </section>
             @RenderBody()
 
@@ -454,16 +461,23 @@
                         &times;
                     </button>
                     <div id="alert_header"><h4><i id="icon_alert" class="icon fa fa-check"></i> <span>Alerta!</span></h4></div>
-                    <p>
+                        <p>
                         <div id="alert_message"><span></span></div>
-                    </p>
-                    <br />
+                        </p>
+                        <br />
                     <button type="button" class="btn btn-success" data-dismiss="alert" id="btnOKModal">Ok</button>
                 </div>
             </div>
 
+            <div id="modal-container-cep" class="modal fade"
+                 tabindex="-1" role="dialog">
+                <div class="modal-content">
+                </div>
+            </div>
 
-        </div><!-- /.content-wrapper -->
+
+
+       </div><!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Versão</b> 1.0.0
@@ -485,6 +499,6 @@
     @Scripts.Render("~/Content/plugins/slimScroll")
     @Scripts.Render("~/Content/plugins/fastclick")
     @Scripts.Render("~/Scripts")
-
+    
 </body>
 </html>

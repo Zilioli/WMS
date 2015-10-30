@@ -26,6 +26,12 @@ namespace WMS.wcfCadastro {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/ListarPerfil", ReplyAction="http://tempuri.org/ICadastro/ListarPerfilResponse")]
         System.Threading.Tasks.Task<string> ListarPerfilAsync(string pJSONPerfil);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/ListarFornecedor", ReplyAction="http://tempuri.org/ICadastro/ListarFornecedorResponse")]
+        string ListarFornecedor(string pJSONFornecedor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICadastro/ListarFornecedor", ReplyAction="http://tempuri.org/ICadastro/ListarFornecedorResponse")]
+        System.Threading.Tasks.Task<string> ListarFornecedorAsync(string pJSONFornecedor);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -69,6 +75,14 @@ namespace WMS.wcfCadastro {
         
         public System.Threading.Tasks.Task<string> ListarPerfilAsync(string pJSONPerfil) {
             return base.Channel.ListarPerfilAsync(pJSONPerfil);
+        }
+        
+        public string ListarFornecedor(string pJSONFornecedor) {
+            return base.Channel.ListarFornecedor(pJSONFornecedor);
+        }
+        
+        public System.Threading.Tasks.Task<string> ListarFornecedorAsync(string pJSONFornecedor) {
+            return base.Channel.ListarFornecedorAsync(pJSONFornecedor);
         }
     }
 }

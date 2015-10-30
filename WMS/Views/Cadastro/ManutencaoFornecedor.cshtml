@@ -1,0 +1,183 @@
+﻿@model WMS.Models.Fornecedor
+@using System.Web.Optimization
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ManutencaoFornecedor</title>
+
+</head>
+<body>
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            @using (Html.BeginForm())
+            {
+
+                    <!-- Header -->
+                <div class="box-body">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Fechar</span></button>
+                        <h4 class="modal-title">Manutenção de Fornecedor</h4>
+                    </div>
+                    <div class="form-group">
+                        <div id="content">
+                            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                                <li class="active">
+                                    <a href="#tabFornecedor"
+                                       data-toggle="tab">Fornecedor</a>
+                                </li>
+                                <li><a href="#tabInfAdicionais" data-toggle="tab">Informações Adicionais</a></li>
+                            </ul>
+                            <div id="my-tab-content" class="tab-content">
+                                <div class="modal-body tab-pane  active" id="tabFornecedor">
+                                    <div class="row">
+                                        <div class="form-group">
+
+                                            <div class="row">
+                                                <div class="col-sm-12  pull-left">
+                                                    <div class="col-lg-6">
+                                                        @Html.Label("Código Empresa", new { @class = "" })
+                                                        <div class="input-group input-group-sm">
+                                                            @Html.TextBox("IdEmpr", "", new { @class = "form-control", @readonly = "readonly", @id = "txtIdEmpresa" })
+                                                            <span class="input-group-btn">
+
+                                                                <a id="btnSearch" class="btn btn-info btn-flat" href="#">
+                                                                    &nbsp;<span class='glyphicon glyphicon-search'></span>
+                                                                </a>
+
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        @Html.Label("Empresa", new { @class = "" })
+                                                        @Html.TextBox("nmEmp", "", new { @class = "form-control input-sm", @id = "txtNmEmpresa", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12  pull-left">
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.idFornecedor, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.idFornecedor, new { @class = "form-control input-sm", @readonly = "readonly", @id = "txtIdFornecedor" })
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.nmFornecedor, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.nmFornecedor, new { @class = "form-control input-sm", @id = "txtNmFornecedor" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-sm-12  pull-left">
+                                                    <div class="col-sm-12">
+                                                        @Html.LabelFor(model => model.razaoSocial, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.razaoSocial, new { @class = "form-control  input-sm", @id = "txtRazaoSocial" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-sm-12  pull-left">
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.CNPJ, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.CNPJ, new { @class = "form-control input-sm", @id = "txtCNPJ" })
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.cdIncricaoEstadual, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.cdIncricaoEstadual, new { @class = "form-control input-sm", @id = "txtCdIncricaoEstadual" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-body tab-pane" id="tabInfAdicionais">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12  pull-left">
+                                                    <div class="col-lg-6">
+                                                        @Html.LabelFor(model => model.CEP.Cep, new { @class = "" })
+                                                        <div class="input-group input-group-sm">
+                                                            @Html.TextBoxFor(model => model.CEP.Cep, "", new { @class = "form-control", @id = "txtCEP", @onchange = "ConsultarCEP()" })
+                                                            <span class="input-group-btn">
+                                                                <a id="btnCEP" class="btn btn-info btn-flat" href="#">
+                                                                    &nbsp;<span class='glyphicon glyphicon-search'></span>
+                                                                </a>
+
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.CEP.Endereco, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.CEP.Endereco, "", new { @class = "form-control input-sm", @id = "txtEndereco", })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12  pull-left">
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.CEP.Bairro, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.CEP.Bairro, new { @class = "form-control input-sm", @id = "txtBairro" })
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.CEP.Municipio, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.CEP.Municipio, new { @class = "form-control input-sm", @id = "txtMunicipio" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12  pull-left">
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.CEP.Estado, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.CEP.Estado, new { @class = "form-control input-sm", @id = "txtEstado" })
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        @Html.LabelFor(model => model.CEP.UF, new { @class = "" })
+                                                        @Html.TextBoxFor(model => model.CEP.UF, new { @class = "form-control input-sm", @id = "txtUF" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <br />
+                                            <input type="button" value="Salvar" class="btn btn-primary" id="btnSalvar" />
+                                            <input type="button" value="Cancelar" class="btn btn-default" onclick="javascript: WMSEscondeModal()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                    <script type="text/javascript" src="~/Scripts/Cadastro/Fornecedor.js"></script>
+                    <script type="text/javascript" src="~/Scripts/WMSUtil.js"></script>
+                    <script>
+
+                        WMSCarregaPopUpCEP("#btnCEP");
+                    </script>
+            }
+        </div>
+    </div>
+</body>
+</html>
