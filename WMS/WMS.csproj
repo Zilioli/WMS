@@ -992,6 +992,7 @@
     <Content Include="Content\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Content\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="Scripts\Cadastro\Fornecedor.js" />
+    <Content Include="Scripts\Cadastro\Funcionario.js" />
     <Content Include="Scripts\Cadastro\Perfil.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1008,6 +1009,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.bootstrap.js" />

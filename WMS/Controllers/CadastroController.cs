@@ -40,8 +40,8 @@ namespace WMS.Controllers
             {
                 objPerfil.idPerfil = -1;
                 lstPerfil = serializer.Deserialize<List<Perfil>>(objCadastro.ListarPerfil(JsonConvert.SerializeObject(objPerfil)));
-                return View(lstPerfil);
-            }
+            return View(lstPerfil);
+        }
             catch (Exception ex)
             {
                 throw ex;
@@ -195,17 +195,7 @@ namespace WMS.Controllers
          *--------------------------------------------------------------------
          *--------------------------------------------------------------------*/
 
-        [HttpPost]
-        public ActionResult Funcionario(Funcionario funcionario)
-        {
 
-            if (!ModelState.IsValid) //Check for validation errors
-            {
-                return View(funcionario);
-            }
-
-            return RedirectToAction("Index");
-        }
 
         public ActionResult Funcionario()
         {
@@ -215,6 +205,11 @@ namespace WMS.Controllers
             ViewBag.lstTurnos = lstTurnos;
 
             return View();
+        }
+
+        public JsonResult SalvarFuncionario()
+        {
+            return Json("OK");
         }
 
     }
